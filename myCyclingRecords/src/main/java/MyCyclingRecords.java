@@ -1,11 +1,29 @@
+import models.Writing;
+import panels.BulletinBoardPanel;
+import panels.WritingPanel;
+
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
 
 public class MyCyclingRecords {
   private JFrame frame;
   private JPanel bulletinBoardPanel;
-  private JPanel writingPanel1;
-  private JPanel writingPanel2;
+
+  private List<Writing> writingList = List.of(
+      new Writing(
+          "황인우",
+          "운동",
+          "나의 21번째 라이딩",
+          "41km",
+          new String[]{
+              "서울대입구역", "도림천", "안양천", "여의도한강공원", "반포한강공원", "잠실한강공원"
+          },
+          "월요일부터 5일 내내 장마기간이라고 하길래 오전에 얼른 나가서 자전거를 타고 왔다." +
+              " 1시간 반 동안 열심히 라이딩을 해서 즐거웠다." +
+              " 이제 8주차 주간 과제를 열심히 해서 잘 기능하는 프로그램을 만들고 싶다."
+      )
+  );
 
   public static void main(String[] args) {
     MyCyclingRecords application = new MyCyclingRecords();
@@ -16,6 +34,12 @@ public class MyCyclingRecords {
     initFrame();
 
     initBulletinBoardPanel();
+
+    JPanel writingPanel = initWritingPanel();
+
+    addWritingPanelToBulletinBoardPanel(writingPanel);
+
+    addBulletinBoardPanelToFrame();
 
     showFrame();
   }
@@ -30,73 +54,25 @@ public class MyCyclingRecords {
   }
 
   public void initBulletinBoardPanel() {
-    bulletinBoardPanel = new JPanel();
+    bulletinBoardPanel = new BulletinBoardPanel();
     bulletinBoardPanel.setLayout(new GridLayout(2, 1));
+  }
 
-    writingPanel1 = new JPanel();
+  public JPanel initWritingPanel() {
+    Writing writing = writingList.get(0);
 
-    writingPanel1.setLayout(new GridLayout(6, 1));
+    JPanel writingPanel = new WritingPanel(writing);
 
-    JLabel writerLabel1 = new JLabel("작성자 label 1");
-    writingPanel1.add(writerLabel1);
+    writingPanel.setLayout(new GridLayout(6, 1));
 
-    JLabel subjectLabel1 = new JLabel("주제 label 1");
-    writingPanel1.add(subjectLabel1);
+    return writingPanel;
+  }
 
-    JLabel titleLabel1 = new JLabel("제목 label 1");
-    writingPanel1.add(titleLabel1);
+  public void addWritingPanelToBulletinBoardPanel(JPanel writingPanel) {
+    bulletinBoardPanel.add(writingPanel);
+  }
 
-    JLabel distanceLabel1 = new JLabel("이동거리 label 1");
-    writingPanel1.add(distanceLabel1);
-
-    JPanel stopoverPlacesPanel1 = new JPanel();
-    stopoverPlacesPanel1.setLayout(new FlowLayout());
-
-    JLabel stopoverPlace1Label1 = new JLabel("경유 장소 1 label 1");
-    stopoverPlacesPanel1.add(stopoverPlace1Label1);
-    JLabel stopoverPlace2Label1 = new JLabel("경유 장소 2 label 1");
-    stopoverPlacesPanel1.add(stopoverPlace2Label1);
-
-    writingPanel1.add(stopoverPlacesPanel1);
-
-    JTextField contentField1 = new JTextField("게시글 내용 textfield 1");
-    contentField1.setEditable(false);
-    writingPanel1.add(contentField1);
-
-    bulletinBoardPanel.add(writingPanel1);
-
-    writingPanel2 = new JPanel();
-
-    writingPanel2.setLayout(new GridLayout(6, 1));
-
-    JLabel writerLabel2 = new JLabel("작성자 label 2");
-    writingPanel2.add(writerLabel2);
-
-    JLabel subjectLabel2 = new JLabel("주제 label 2");
-    writingPanel2.add(subjectLabel2);
-
-    JLabel titleLabel2 = new JLabel("제목 label 2");
-    writingPanel2.add(titleLabel2);
-
-    JLabel distanceLabel2 = new JLabel("이동거리 label 2");
-    writingPanel2.add(distanceLabel2);
-
-    JPanel stopoverPlacesPanel2 = new JPanel();
-    stopoverPlacesPanel2.setLayout(new FlowLayout());
-
-    JLabel stopoverPlace1Label2 = new JLabel("경유 장소 1 label 2");
-    stopoverPlacesPanel2.add(stopoverPlace1Label2);
-    JLabel stopoverPlace2Label2 = new JLabel("경유 장소 2 label 2");
-    stopoverPlacesPanel2.add(stopoverPlace2Label2);
-
-    writingPanel2.add(stopoverPlacesPanel2);
-
-    JTextField contentField2 = new JTextField("게시글 내용 textfield 2");
-    contentField2.setEditable(false);
-    writingPanel2.add(contentField2);
-
-    bulletinBoardPanel.add(writingPanel2);
-
+  public void addBulletinBoardPanelToFrame() {
     frame.add(bulletinBoardPanel);
   }
 
