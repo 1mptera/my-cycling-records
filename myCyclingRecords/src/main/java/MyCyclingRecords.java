@@ -1,19 +1,32 @@
+import panels.BulletinBoardPanel;
+import panels.WritingPanel;
+import repositories.WritingRepository;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class MyCyclingRecords {
   private JFrame frame;
-  private JPanel boardPanel;
+  private JPanel bulletinBoardPanel;
+
+  private WritingRepository writingRepository;
 
   public static void main(String[] args) {
     MyCyclingRecords application = new MyCyclingRecords();
     application.run();
   }
 
+  public MyCyclingRecords() {
+    writingRepository = new WritingRepository();
+  }
+
   public void run() {
     initFrame();
 
-    initBoardPanel();
+    initBulletinBoardPanel();
+    initWritingPanels();
+
+    addBulletinBoardPanelToFrame();
 
     showFrame();
   }
@@ -23,21 +36,32 @@ public class MyCyclingRecords {
 
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.setLocation(150, 150);
-    frame.setSize(450, 600);
     frame.setLayout(new GridLayout(1, 1));
+    frame.setSize(450, 600);
   }
 
-  public void initBoardPanel() {
-    boardPanel = new JPanel();
+  public void initBulletinBoardPanel() {
+    bulletinBoardPanel = new BulletinBoardPanel();
+    bulletinBoardPanel.setLayout(
+        new GridLayout(writingRepository.repositorySize(), 1)
+    );
+  }
 
-    JTextField contentField = new JTextField("게시글 내용 textfield");
-    contentField.setEditable(false);
-    boardPanel.add(contentField);
+  public void initWritingPanels() {
+    for (int i = 0; i < writingRepository.repositorySize(); i += 1) {
+      JPanel writingPanel = new WritingPanel(writingRepository.writing(i));
 
-    frame.add(boardPanel);
+      bulletinBoardPanel.add(writingPanel);
+    }
+  }
+
+  public void addBulletinBoardPanelToFrame() {
+    frame.add(bulletinBoardPanel);
   }
 
   public void showFrame() {
+    frame.pack();
+
     frame.setVisible(true);
   }
 }
