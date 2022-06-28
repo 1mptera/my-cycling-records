@@ -6,7 +6,8 @@ import javax.swing.*;
 import java.awt.*;
 
 public class WritingEditorPanel extends JPanel {
-  private WritingRepository writingRepository;
+  private final MainPanel mainPanel;
+  private final WritingRepository writingRepository;
 
   private JTextField writerFormTextField;
   private JTextField subjectFormTextField;
@@ -14,8 +15,7 @@ public class WritingEditorPanel extends JPanel {
   private JTextField distanceFormTextField;
   private JTextField stopoverPlacesFormTextField;
   private JTextArea contentFormTextArea;
-
-  private final MainPanel mainPanel;
+  private JPanel buttonsPanel;
 
   public WritingEditorPanel(WritingRepository writingRepository,
                             MainPanel mainPanel) {
@@ -24,23 +24,29 @@ public class WritingEditorPanel extends JPanel {
     
     this.setLayout(new GridLayout(7, 1));
 
-    this.addWriterForm();
-    this.addSubjectForm();
-    this.addTitleForm();
-    this.addDistanceForm();
-    this.addStopoverPlacesForm();
-    this.addContentForm();
-    this.addButtonsPanel();
+    this.initWriterForm();
+    this.initSubjectForm();
+    this.initTitleForm();
+    this.initDistanceForm();
+    this.initStopoverPlacesForm();
+    this.initContentForm();
+    this.initButtonsPanel();
 
     this.setVisible(false);
   }
 
-  public void addWriterForm() {
-    JPanel writerFormPanel = new JPanel();
+  public JPanel createFormPanel(String labelName) {
+    JPanel formPanel = new JPanel();
 
-    writerFormPanel.setLayout(new GridLayout(1, 2));
+    formPanel.setLayout(new GridLayout(1, 2));
 
-    writerFormPanel.add(new JLabel("작성자: "));
+    formPanel.add(new JLabel(labelName));
+
+    return formPanel;
+  }
+
+  public void initWriterForm() {
+    JPanel writerFormPanel = createFormPanel("작성자: ");
 
     writerFormTextField = new JTextField();
     writerFormPanel.add(writerFormTextField);
@@ -48,12 +54,8 @@ public class WritingEditorPanel extends JPanel {
     this.add(writerFormPanel);
   }
 
-  public void addSubjectForm() {
-    JPanel subjectFormPanel = new JPanel();
-
-    subjectFormPanel.setLayout(new GridLayout(1, 2));
-
-    subjectFormPanel.add(new JLabel("주제: "));
+  public void initSubjectForm() {
+    JPanel subjectFormPanel = createFormPanel("주제: ");
 
     subjectFormTextField = new JTextField();
     subjectFormPanel.add(subjectFormTextField);
@@ -61,12 +63,8 @@ public class WritingEditorPanel extends JPanel {
     this.add(subjectFormPanel);
   }
 
-  public void addTitleForm() {
-    JPanel titleFormPanel = new JPanel();
-
-    titleFormPanel.setLayout(new GridLayout(1, 2));
-
-    titleFormPanel.add(new JLabel("제목: "));
+  public void initTitleForm() {
+    JPanel titleFormPanel = createFormPanel("제목: ");
 
     titleFormTextField = new JTextField();
     titleFormPanel.add(titleFormTextField);
@@ -74,12 +72,8 @@ public class WritingEditorPanel extends JPanel {
     this.add(titleFormPanel);
   }
 
-  public void addDistanceForm() {
-    JPanel distanceFormPanel = new JPanel();
-
-    distanceFormPanel.setLayout(new GridLayout(1, 2));
-
-    distanceFormPanel.add(new JLabel("주행거리: "));
+  public void initDistanceForm() {
+    JPanel distanceFormPanel = createFormPanel("주행거리: ");
 
     distanceFormTextField = new JTextField();
     distanceFormPanel.add(distanceFormTextField);
@@ -87,12 +81,8 @@ public class WritingEditorPanel extends JPanel {
     this.add(distanceFormPanel);
   }
 
-  public void addStopoverPlacesForm() {
-    JPanel stopoverPlacesFormPanel = new JPanel();
-
-    stopoverPlacesFormPanel.setLayout(new GridLayout(1, 2));
-
-    stopoverPlacesFormPanel.add(new JLabel("경유장소: "));
+  public void initStopoverPlacesForm() {
+    JPanel stopoverPlacesFormPanel = createFormPanel("경유장소: ");
 
     stopoverPlacesFormTextField = new JTextField();
     stopoverPlacesFormPanel.add(stopoverPlacesFormTextField);
@@ -100,12 +90,8 @@ public class WritingEditorPanel extends JPanel {
     this.add(stopoverPlacesFormPanel);
   }
 
-  public void addContentForm() {
-    JPanel contentFormPanel = new JPanel();
-
-    contentFormPanel.setLayout(new GridLayout(1, 2));
-
-    contentFormPanel.add(new JLabel("상세 내용: "));
+  public void initContentForm() {
+    JPanel contentFormPanel = createFormPanel("상세 내용: ");
 
     contentFormTextArea = new JTextArea();
     contentFormTextArea.setLineWrap(true);
@@ -117,22 +103,37 @@ public class WritingEditorPanel extends JPanel {
     this.add(contentFormPanel);
   }
 
-  public void addButtonsPanel() {
-    JPanel buttonsPanel = new JPanel();
+  public void initButtonsPanel() {
+    buttonsPanel = new JPanel();
+    buttonsPanel.setLayout(new GridLayout(1, 2));
 
+    initCancelButton();
+    initSubmitButton();
+
+    this.add(buttonsPanel);
+  }
+
+  public void emptyAllTextFields() {
+    this.writerFormTextField.setText("");
+    this.subjectFormTextField.setText("");
+    this.titleFormTextField.setText("");
+    this.distanceFormTextField.setText("");
+    this.stopoverPlacesFormTextField.setText("");
+    this.contentFormTextArea.setText("");
+  }
+
+  public void initCancelButton() {
     JButton cancelButton = new JButton("취소하기");
     cancelButton.addActionListener(event -> {
-      this.writerFormTextField.setText("");
-      this.subjectFormTextField.setText("");
-      this.titleFormTextField.setText("");
-      this.distanceFormTextField.setText("");
-      this.stopoverPlacesFormTextField.setText("");
-      this.contentFormTextArea.setText("");
+      emptyAllTextFields();
 
       this.setVisible(false);
     });
-    buttonsPanel.add(cancelButton);
 
+    buttonsPanel.add(cancelButton);
+  }
+
+  public void initSubmitButton() {
     JButton submitButton = new JButton("올리기");
     submitButton.addActionListener(event -> {
       writingRepository.createNewWriting(
@@ -144,19 +145,13 @@ public class WritingEditorPanel extends JPanel {
           this.contentFormTextArea.getText()
       );
 
-      this.writerFormTextField.setText("");
-      this.subjectFormTextField.setText("");
-      this.titleFormTextField.setText("");
-      this.distanceFormTextField.setText("");
-      this.stopoverPlacesFormTextField.setText("");
-      this.contentFormTextArea.setText("");
+      emptyAllTextFields();
 
       this.setVisible(false);
 
-      mainPanel.reinitBulletinBoardPanel(writingRepository);
+      mainPanel.reinitBulletinBoardPanel();
     });
-    buttonsPanel.add(submitButton);
 
-    this.add(buttonsPanel);
+    buttonsPanel.add(submitButton);
   }
 }

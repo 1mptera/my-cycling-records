@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WritingRepository {
-  private List<Writing> writingsList;
+  private final List<Writing> writingsList;
 
   public WritingRepository() {
     writingsList = new ArrayList<>();
@@ -26,7 +26,6 @@ public class WritingRepository {
         )
     );
   }
-
 
   public int repositorySize() {
     return writingsList.size();

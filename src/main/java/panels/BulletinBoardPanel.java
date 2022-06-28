@@ -15,10 +15,10 @@ public class BulletinBoardPanel extends JPanel {
         new GridLayout(writingRepository.repositorySize(), 1)
     );
 
-    this.initAndAddWritingPanels();
+    this.initWritingPanels();
   }
 
-  public void initAndAddWritingPanels() {
+  public void initWritingPanels() {
     for (int i = writingRepository.repositorySize() - 1; i >= 0; i -= 1) {
       JPanel writingPanel = new WritingPanel(writingRepository.writing(i));
 
