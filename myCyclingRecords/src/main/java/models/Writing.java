@@ -8,8 +8,8 @@ public class Writing {
   private String[] stopoverPlaces;
   private String content;
 
-  public Writing(String writer, String subject, String title, String distance,
-                 String[] stopoverPlaces, String content) {
+  public Writing(String writer, String subject, String title,
+                 String distance, String[] stopoverPlaces, String content) {
     this.writer = writer;
     this.subject = subject;
     this.title = title;

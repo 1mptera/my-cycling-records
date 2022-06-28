@@ -1,5 +1,5 @@
-import panels.BulletinBoardPanel;
-import panels.WritingPanel;
+import panels.HeaderPanel;
+import panels.MainPanel;
 import repositories.WritingRepository;
 
 import javax.swing.*;
@@ -7,7 +7,8 @@ import java.awt.*;
 
 public class MyCyclingRecords {
   private JFrame frame;
-  private JPanel bulletinBoardPanel;
+  private HeaderPanel headerPanel;
+  private MainPanel mainPanel;
 
   private WritingRepository writingRepository;
 
@@ -23,10 +24,8 @@ public class MyCyclingRecords {
   public void run() {
     initFrame();
 
-    initBulletinBoardPanel();
-    initWritingPanels();
-
-    addBulletinBoardPanelToFrame();
+    initHeaderPanel();
+    initMainPanel();
 
     showFrame();
   }
@@ -36,27 +35,21 @@ public class MyCyclingRecords {
 
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.setLocation(150, 150);
-    frame.setLayout(new GridLayout(1, 1));
+    frame.setLayout(new GridLayout(2, 1));
     frame.setSize(450, 600);
   }
 
-  public void initBulletinBoardPanel() {
-    bulletinBoardPanel = new BulletinBoardPanel();
-    bulletinBoardPanel.setLayout(
-        new GridLayout(writingRepository.repositorySize(), 1)
-    );
+  public void initHeaderPanel() {
+    headerPanel = new HeaderPanel();
+    frame.add(headerPanel);
   }
 
-  public void initWritingPanels() {
-    for (int i = 0; i < writingRepository.repositorySize(); i += 1) {
-      JPanel writingPanel = new WritingPanel(writingRepository.writing(i));
+  public void initMainPanel() {
+    mainPanel = new MainPanel(writingRepository);
 
-      bulletinBoardPanel.add(writingPanel);
-    }
-  }
+    headerPanel.setButtonActionListener(mainPanel);
 
-  public void addBulletinBoardPanelToFrame() {
-    frame.add(bulletinBoardPanel);
+    frame.add(mainPanel);
   }
 
   public void showFrame() {
