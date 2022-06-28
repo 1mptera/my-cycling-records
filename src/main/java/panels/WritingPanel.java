@@ -14,7 +14,7 @@ public class WritingPanel extends JPanel {
     this.addTitleLabel(writing.title());
     this.addDistanceLabel(writing.distance());
     this.addStopoverPlacesPanel(writing.stopoverPlaces());
-    this.addContentField(writing.content());
+    this.addContentArea(writing.content());
   }
 
   public void addWriterLabel(String writer) {
@@ -47,7 +47,7 @@ public class WritingPanel extends JPanel {
     this.add(stopoverPlacesPanel);
   }
 
-  public void addContentField(String content) {
+  public void addContentArea(String content) {
     this.add(new JLabel("상세 내용:"));
 
     JTextArea contentArea = new JTextArea(content);
