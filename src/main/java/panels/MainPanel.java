@@ -31,7 +31,7 @@ public class MainPanel extends JPanel {
   }
 
   public void initBulletinBoardPanel() {
-    bulletinBoardPanel = new BulletinBoardPanel(writingRepository);
+    bulletinBoardPanel = new BulletinBoardPanel(writingRepository, this);
 
     this.add(bulletinBoardPanel);
   }

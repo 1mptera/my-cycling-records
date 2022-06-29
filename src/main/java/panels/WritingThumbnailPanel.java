@@ -4,15 +4,23 @@ import models.Writing;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class WritingThumbnailPanel extends JPanel {
-  public WritingThumbnailPanel(Writing writing) {
+  public WritingThumbnailPanel(Writing writing, MainPanel mainPanel) {
     this.setLayout(new GridLayout(4, 1));
 
     this.addWriterThumbnailLabel(writing.writer());
     this.addSubjectThumbnailLabel(writing.subject());
     this.addTitleThumbnailLabel(writing.title());
     this.addDistanceThumbnailLabel(writing.distance());
+
+    this.addMouseListener(new MouseAdapter() {
+      public void mouseClicked(MouseEvent event) {
+        mainPanel.leftSpacePanel().initWritingPanel(writing);
+      }
+    });
   }
 
   private void addWriterThumbnailLabel(String writer) {
