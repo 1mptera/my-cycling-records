@@ -8,7 +8,7 @@ import java.awt.*;
 public class MainPanel extends JPanel {
   private final WritingRepository writingRepository;
 
-  private WritingEditorPanel writingEditorPanel;
+  private LeftSpacePanel leftSpacePanel;
   private BulletinBoardPanel bulletinBoardPanel;
 
   public MainPanel(WritingRepository writingRepository) {
@@ -16,22 +16,22 @@ public class MainPanel extends JPanel {
 
     this.setLayout(new GridLayout(1, 2));
 
-    this.initWritingEditorPanel();
+    this.initLeftSpacePanel();
     this.initBulletinBoardPanel();
   }
 
-  public WritingEditorPanel writingEditorPanel() {
-    return writingEditorPanel;
+  public LeftSpacePanel leftSpacePanel() {
+    return leftSpacePanel;
   }
 
-  public void initWritingEditorPanel() {
-    writingEditorPanel = new WritingEditorPanel(writingRepository, this);
+  public void initLeftSpacePanel() {
+    leftSpacePanel = new LeftSpacePanel(writingRepository, this);
 
-    this.add(writingEditorPanel);
+    this.add(leftSpacePanel);
   }
 
   public void initBulletinBoardPanel() {
-    bulletinBoardPanel = new BulletinBoardPanel(writingRepository);
+    bulletinBoardPanel = new BulletinBoardPanel(writingRepository, this);
 
     this.add(bulletinBoardPanel);
   }

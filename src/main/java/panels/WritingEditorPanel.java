@@ -31,8 +31,6 @@ public class WritingEditorPanel extends JPanel {
     this.initStopoverPlacesForm();
     this.initContentForm();
     this.initButtonsPanel();
-
-    this.setVisible(false);
   }
 
   public JPanel createFormPanel(String labelName) {
