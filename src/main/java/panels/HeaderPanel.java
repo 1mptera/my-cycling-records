@@ -25,7 +25,7 @@ public class HeaderPanel extends JPanel {
 
   public void setButtonActionListener(MainPanel mainPanel) {
     createNewWritingButton.addActionListener(event -> {
-      mainPanel.writingEditorPanel().setVisible(true);
+      mainPanel.leftSpacePanel().writingEditorPanel().setVisible(true);
     });
   }
 }
