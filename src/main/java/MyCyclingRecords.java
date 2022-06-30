@@ -34,9 +34,8 @@ public class MyCyclingRecords {
     frame = new JFrame("My Cycling Application");
 
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    frame.setLocation(150, 150);
+    frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
     frame.setLayout(new GridLayout(2, 1));
-    frame.setSize(450, 600);
   }
 
   public void initHeaderPanel() {
