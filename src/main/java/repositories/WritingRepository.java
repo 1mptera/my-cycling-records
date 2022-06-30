@@ -105,6 +105,14 @@ public class WritingRepository {
     writing(indexBeModifiedWriting).modifyContent(content);
   }
 
+  public void deleteWriting(int uniqueNumber) {
+    int foundWritingIndex = findWritingMatchingUniqueNumber(uniqueNumber);
+    writingsList.remove(foundWritingIndex);
+
+    int foundUniqueNumberIndex = findUniqueNumberInList(uniqueNumber);
+    usedUniqueNumbersList.remove(foundUniqueNumberIndex);
+  }
+
   public int findWritingMatchingUniqueNumber(int uniqueNumber) {
     int index = 0;
 
@@ -116,6 +124,19 @@ public class WritingRepository {
 
     return index;
   }
+
+  public int findUniqueNumberInList(int uniqueNumber) {
+    int index = 0;
+
+    for (index = 0; index < usedUniqueNumbersListSize(); index += 1) {
+      if (uniqueNumber == uniqueNumber(index)) {
+        break;
+      }
+    }
+
+    return index;
+  }
+
   public void addUniqueNumber(int uniqueNumber) {
     usedUniqueNumbersList.add(uniqueNumber);
   }

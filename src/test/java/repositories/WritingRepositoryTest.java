@@ -161,4 +161,13 @@ class WritingRepositoryTest {
         "어흐흐흐흐흐흐희ㅣ~~~~", modifiedWriting.content());
     assertEquals(1, modifiedWriting.uniqueNumber());
   }
+
+  @Test
+  void deleteWriting() {
+    WritingRepository writingRepository = new WritingRepository();
+
+    writingRepository.deleteWriting(0);
+
+    assertEquals(0, writingRepository.repositorySize());
+  }
 }

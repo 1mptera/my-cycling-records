@@ -11,10 +11,10 @@ public class WritingThumbnailPanel extends JPanel {
   public WritingThumbnailPanel(Writing writing, MainPanel mainPanel) {
     this.setLayout(new GridLayout(4, 1));
 
-    this.addWriterThumbnailLabel(writing.writer());
-    this.addSubjectThumbnailLabel(writing.subject());
-    this.addTitleThumbnailLabel(writing.title());
-    this.addDistanceThumbnailLabel(writing.distance());
+    this.initWriterThumbnailLabel(writing.writer());
+    this.initSubjectThumbnailLabel(writing.subject());
+    this.initTitleThumbnailLabel(writing.title());
+    this.initDistanceThumbnailLabel(writing.distance());
 
     this.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent event) {
@@ -23,19 +23,19 @@ public class WritingThumbnailPanel extends JPanel {
     });
   }
 
-  private void addWriterThumbnailLabel(String writer) {
+  private void initWriterThumbnailLabel(String writer) {
     this.add(new JLabel(writer));
   }
 
-  private void addSubjectThumbnailLabel(String subject) {
+  private void initSubjectThumbnailLabel(String subject) {
     this.add(new JLabel(subject));
   }
 
-  private void addTitleThumbnailLabel(String title) {
+  private void initTitleThumbnailLabel(String title) {
     this.add(new JLabel(title));
   }
 
-  private void addDistanceThumbnailLabel(String distance) {
+  private void initDistanceThumbnailLabel(String distance) {
     this.add(new JLabel(distance));
   }
 }

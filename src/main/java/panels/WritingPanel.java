@@ -1,40 +1,48 @@
 package panels;
 
 import models.Writing;
+import repositories.WritingRepository;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class WritingPanel extends JPanel {
-  public WritingPanel(Writing writing, MainPanel mainPanel) {
+  private MainPanel mainPanel;
+  private WritingRepository writingRepository;
+
+  public WritingPanel(Writing writing, MainPanel mainPanel,
+                      WritingRepository writingRepository) {
+    this.mainPanel = mainPanel;
+    this.writingRepository = writingRepository;
+
     this.setLayout(new GridLayout(9, 1));
 
-    this.addWriterLabel(writing.writer());
-    this.addSubjectLabel(writing.subject());
-    this.addTitleLabel(writing.title());
-    this.addDistanceLabel(writing.distance());
-    this.addStopoverPlacesPanel(writing.stopoverPlaces());
-    this.addContentArea(writing.content());
-    this.addModifyButton(writing, mainPanel);
+    this.initWriterLabel(writing.writer());
+    this.initSubjectLabel(writing.subject());
+    this.initTitleLabel(writing.title());
+    this.initDistanceLabel(writing.distance());
+    this.initStopoverPlacesPanel(writing.stopoverPlaces());
+    this.initContentArea(writing.content());
+    this.initButtonsPanel(writing);
   }
 
-  public void addWriterLabel(String writer) {
+  public void initWriterLabel(String writer) {
     this.add(new JLabel("작성자: " + writer));
   }
 
-  public void addSubjectLabel(String subject) {
+  public void initSubjectLabel(String subject) {
     this.add(new JLabel("주제: " + subject));
   }
 
-  public void addTitleLabel(String title) {
+  public void initTitleLabel(String title) {
     this.add(new JLabel("제목: " + title));
   }
 
-  public void addDistanceLabel(String distance) {
+  public void initDistanceLabel(String distance) {
     this.add(new JLabel("주행거리: " + distance));
   }
 
-  public void addStopoverPlacesPanel(String[] stopoverPlaces) {
+  public void initStopoverPlacesPanel(String[] stopoverPlaces) {
     this.add(new JLabel("경유장소:"));
 
     JPanel stopoverPlacesPanel = new JPanel();
@@ -48,7 +56,7 @@ public class WritingPanel extends JPanel {
     this.add(stopoverPlacesPanel);
   }
 
-  public void addContentArea(String content) {
+  public void initContentArea(String content) {
     this.add(new JLabel("상세 내용:"));
 
     JTextArea contentArea = new JTextArea(content);
@@ -61,13 +69,37 @@ public class WritingPanel extends JPanel {
     this.add(contentScrollPane);
   }
 
-  public void addModifyButton(Writing writing, MainPanel mainPanel) {
+  public void initButtonsPanel(Writing writing) {
+    JPanel buttonsPanel = new JPanel();
+    buttonsPanel.setLayout(new GridLayout(1, 2));
+
+    initModifyButton(buttonsPanel, writing);
+    initDeleteButton(buttonsPanel, writing);
+
+    this.add(buttonsPanel);
+  }
+
+  public void initModifyButton(JPanel buttonsPanel, Writing writing) {
     JButton modifyButton = new JButton("수정하기");
 
     modifyButton.addActionListener(event -> {
       mainPanel.leftSpacePanel().initWritingEditorPanel(writing);
     });
 
-    this.add(modifyButton);
+    buttonsPanel.add(modifyButton);
+  }
+
+  public void initDeleteButton(JPanel buttonsPanel, Writing writing) {
+    JButton deleteButton = new JButton("삭제하기");
+
+    deleteButton.addActionListener(event -> {
+      writingRepository.deleteWriting(writing.uniqueNumber());
+
+      this.setVisible(false);
+
+      mainPanel.reinitBulletinBoardPanel();
+    });
+
+    buttonsPanel.add(deleteButton);
   }
 }
