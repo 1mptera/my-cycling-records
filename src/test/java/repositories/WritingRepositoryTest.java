@@ -147,18 +147,18 @@ class WritingRepositoryTest {
             "어흐흐흐흐흐흐희ㅣ~~~~"
     );
 
-    Writing createdWriting = writingRepository.writing(1);
+    Writing modifiedWriting = writingRepository.writing(1);
 
-    assertEquals("일론머스크", createdWriting.writer());
-    assertEquals("도지코인", createdWriting.subject());
-    assertEquals("화성 갈끄니까~~~~~", createdWriting.title());
-    assertEquals("60000000km", createdWriting.distance());
-    assertArrayEquals(new String[]{"지구", "화성", "안드로메다은하"}, createdWriting.stopoverPlaces());
+    assertEquals("일론머스크", modifiedWriting.writer());
+    assertEquals("도지코인", modifiedWriting.subject());
+    assertEquals("화성 갈끄니까~~~~~", modifiedWriting.title());
+    assertEquals("60000000km", modifiedWriting.distance());
+    assertArrayEquals(new String[]{"지구", "화성", "안드로메다은하"}, modifiedWriting.stopoverPlaces());
     assertEquals("아능하스요~~~ 일런 머스컵니다 응 방갑습니다 " +
         "어이 저따라서 비트코인했다가 어 피본사랗 많저? 에흐흐흐 " +
         "나는 돈이 많으니까 상관없는데! 으러분은 조심하셔야 혜! " +
         "어이 암튼 테슬라 쥬식 얼렁 사 화성 갈끄니까~~~? " +
-        "어흐흐흐흐흐흐희ㅣ~~~~", createdWriting.content());
-    assertEquals(1, createdWriting.uniqueNumber());
+        "어흐흐흐흐흐흐희ㅣ~~~~", modifiedWriting.content());
+    assertEquals(1, modifiedWriting.uniqueNumber());
   }
 }
