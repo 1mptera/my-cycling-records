@@ -22,7 +22,8 @@ public class WritingRepository {
             },
             "월요일부터 5일 내내 장마기간이라고 하길래 오전에 얼른 나가서 자전거를 타고 왔다." +
                 " 1시간 반 동안 열심히 라이딩을 해서 즐거웠다." +
-                " 이제 8주차 주간 과제를 열심히 해서 잘 기능하는 프로그램을 만들고 싶다."
+                " 이제 8주차 주간 과제를 열심히 해서 잘 기능하는 프로그램을 만들고 싶다.",
+            "ta68"
         )
     );
   }
@@ -37,7 +38,8 @@ public class WritingRepository {
 
   public void createNewWriting(
       String writer, String subject, String title,
-      String distance, String stopoverPlaces, String content) {
+      String distance, String stopoverPlaces, String content,
+      String uniqueNumber) {
     String[] splitStopoverPlaces = stopoverPlaces.split(",");
 
     writingsList.add(
@@ -47,7 +49,8 @@ public class WritingRepository {
             title,
             distance,
             splitStopoverPlaces,
-            content
+            content,
+            uniqueNumber
         )
     );
   }

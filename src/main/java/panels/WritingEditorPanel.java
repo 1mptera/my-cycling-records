@@ -118,6 +118,8 @@ public class WritingEditorPanel extends JPanel {
     this.distanceFormTextField.setText("");
     this.stopoverPlacesFormTextField.setText("");
     this.contentFormTextArea.setText("");
+
+    //TODO: 여기에도 고유값 관련 기능이 뭔가 있어야 하나...?
   }
 
   public void initCancelButton() {
@@ -134,13 +136,17 @@ public class WritingEditorPanel extends JPanel {
   public void initSubmitButton() {
     JButton submitButton = new JButton("올리기");
     submitButton.addActionListener(event -> {
+      //TODO: 고유번호 값에 관련된 기능이 추가되어야 함
+
       writingRepository.createNewWriting(
           this.writerFormTextField.getText(),
           this.subjectFormTextField.getText(),
           this.titleFormTextField.getText(),
           this.distanceFormTextField.getText(),
           this.stopoverPlacesFormTextField.getText(),
-          this.contentFormTextArea.getText()
+          this.contentFormTextArea.getText(),
+
+          ""
       );
 
       emptyAllTextFields();

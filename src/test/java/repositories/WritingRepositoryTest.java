@@ -17,7 +17,8 @@ class WritingRepositoryTest {
         "제목 1",
         "이동거리 1",
         "경유지 1,경유지 2,경유지 3",
-        "글 내용 1"
+        "글 내용 1",
+        "uaq6"
     );
 
     Writing createdWriting = writingRepository.writing(1);
@@ -28,5 +29,6 @@ class WritingRepositoryTest {
     assertEquals("이동거리 1", createdWriting.distance());
     assertArrayEquals(new String[]{"경유지 1", "경유지 2", "경유지 3"}, createdWriting.stopoverPlaces());
     assertEquals("글 내용 1", createdWriting.content());
+    assertEquals("uaq6", createdWriting.uniqueNumber());
   }
 }

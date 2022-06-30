@@ -13,7 +13,8 @@ class WritingTest {
         "제목 1",
         "이동거리 1",
         new String[]{"경유지 1", "경유지 2", "경유지 3"},
-        "글 내용 1"
+        "글 내용 1",
+        "abcd"
     );
 
     assertEquals("작성자 1", writing.writer());
@@ -22,5 +23,6 @@ class WritingTest {
     assertEquals("이동거리 1", writing.distance());
     assertArrayEquals(new String[]{"경유지 1", "경유지 2", "경유지 3"}, writing.stopoverPlaces());
     assertEquals("글 내용 1", writing.content());
+    assertEquals("abcd", writing.uniqueNumber());
   }
 }
