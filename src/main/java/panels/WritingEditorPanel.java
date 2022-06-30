@@ -1,13 +1,16 @@
 package panels;
 
+import models.Writing;
 import repositories.WritingRepository;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class WritingEditorPanel extends JPanel {
-  private final MainPanel mainPanel;
-  private final WritingRepository writingRepository;
+  private MainPanel mainPanel;
+  private WritingRepository writingRepository;
+
+  private final int uniqueNumber;
 
   private JTextField writerFormTextField;
   private JTextField subjectFormTextField;
@@ -19,18 +22,42 @@ public class WritingEditorPanel extends JPanel {
 
   public WritingEditorPanel(WritingRepository writingRepository,
                             MainPanel mainPanel) {
-    this.writingRepository = writingRepository;
-    this.mainPanel = mainPanel;
-    
+    setFieldVariables(writingRepository, mainPanel);
+
+    this.uniqueNumber = -1;
+
     this.setLayout(new GridLayout(7, 1));
 
-    this.initWriterForm();
-    this.initSubjectForm();
-    this.initTitleForm();
-    this.initDistanceForm();
-    this.initStopoverPlacesForm();
-    this.initContentForm();
+    this.initWriterForm("");
+    this.initSubjectForm("");
+    this.initTitleForm("");
+    this.initDistanceForm("");
+    this.initStopoverPlacesForm(new String[]{""});
+    this.initContentForm("");
     this.initButtonsPanel();
+  }
+
+  public WritingEditorPanel(WritingRepository writingRepository,
+                            MainPanel mainPanel, Writing writing) {
+    setFieldVariables(writingRepository, mainPanel);
+
+    this.uniqueNumber = writing.uniqueNumber();
+
+    this.setLayout(new GridLayout(7, 1));
+
+    this.initWriterForm(writing.writer());
+    this.initSubjectForm(writing.subject());
+    this.initTitleForm(writing.title());
+    this.initDistanceForm(writing.distance());
+    this.initStopoverPlacesForm(writing.stopoverPlaces());
+    this.initContentForm(writing.content());
+    this.initButtonsPanel();
+  }
+
+  public void setFieldVariables(WritingRepository writingRepository,
+                                MainPanel mainPanel) {
+    this.writingRepository = writingRepository;
+    this.mainPanel = mainPanel;
   }
 
   public JPanel createFormPanel(String labelName) {
@@ -43,55 +70,57 @@ public class WritingEditorPanel extends JPanel {
     return formPanel;
   }
 
-  public void initWriterForm() {
+  public void initWriterForm(String receivedWriter) {
     JPanel writerFormPanel = createFormPanel("작성자: ");
 
-    writerFormTextField = new JTextField();
+    writerFormTextField = new JTextField(receivedWriter);
     writerFormPanel.add(writerFormTextField);
 
     this.add(writerFormPanel);
   }
 
-  public void initSubjectForm() {
+  public void initSubjectForm(String receivedSubject) {
     JPanel subjectFormPanel = createFormPanel("주제: ");
 
-    subjectFormTextField = new JTextField();
+    subjectFormTextField = new JTextField(receivedSubject);
     subjectFormPanel.add(subjectFormTextField);
 
     this.add(subjectFormPanel);
   }
 
-  public void initTitleForm() {
+  public void initTitleForm(String receivedTitle) {
     JPanel titleFormPanel = createFormPanel("제목: ");
 
-    titleFormTextField = new JTextField();
+    titleFormTextField = new JTextField(receivedTitle);
     titleFormPanel.add(titleFormTextField);
 
     this.add(titleFormPanel);
   }
 
-  public void initDistanceForm() {
+  public void initDistanceForm(String receivedDistance) {
     JPanel distanceFormPanel = createFormPanel("주행거리: ");
 
-    distanceFormTextField = new JTextField();
+    distanceFormTextField = new JTextField(receivedDistance);
     distanceFormPanel.add(distanceFormTextField);
 
     this.add(distanceFormPanel);
   }
 
-  public void initStopoverPlacesForm() {
+  public void initStopoverPlacesForm(String[] receivedStopoverPlaces) {
     JPanel stopoverPlacesFormPanel = createFormPanel("경유장소: ");
 
-    stopoverPlacesFormTextField = new JTextField();
+    String concatenatedStopoverPlaces = String.join(",", receivedStopoverPlaces);
+
+    stopoverPlacesFormTextField = new JTextField(concatenatedStopoverPlaces);
     stopoverPlacesFormPanel.add(stopoverPlacesFormTextField);
 
     this.add(stopoverPlacesFormPanel);
   }
 
-  public void initContentForm() {
+  public void initContentForm(String receivedContent) {
     JPanel contentFormPanel = createFormPanel("상세 내용: ");
 
-    contentFormTextArea = new JTextArea();
+    contentFormTextArea = new JTextArea(receivedContent);
     contentFormTextArea.setLineWrap(true);
 
     JScrollPane contentFormScrollPane = new JScrollPane(contentFormTextArea);
@@ -118,8 +147,6 @@ public class WritingEditorPanel extends JPanel {
     this.distanceFormTextField.setText("");
     this.stopoverPlacesFormTextField.setText("");
     this.contentFormTextArea.setText("");
-
-    //TODO: 여기에도 고유값 관련 기능이 뭔가 있어야 하나...?
   }
 
   public void initCancelButton() {
@@ -136,18 +163,35 @@ public class WritingEditorPanel extends JPanel {
   public void initSubmitButton() {
     JButton submitButton = new JButton("올리기");
     submitButton.addActionListener(event -> {
-      //TODO: 고유번호 값에 관련된 기능이 추가되어야 함
+      switch (uniqueNumber) {
+        case -1 -> {
+          int createdUniqueNumber = writingRepository.createNewUniqueNumber();
 
-      writingRepository.createNewWriting(
-          this.writerFormTextField.getText(),
-          this.subjectFormTextField.getText(),
-          this.titleFormTextField.getText(),
-          this.distanceFormTextField.getText(),
-          this.stopoverPlacesFormTextField.getText(),
-          this.contentFormTextArea.getText(),
+          writingRepository.createNewWriting(
+              this.writerFormTextField.getText(),
+              this.subjectFormTextField.getText(),
+              this.titleFormTextField.getText(),
+              this.distanceFormTextField.getText(),
+              this.stopoverPlacesFormTextField.getText(),
+              this.contentFormTextArea.getText(),
+              createdUniqueNumber
+          );
 
-          ""
-      );
+          writingRepository.addUniqueNumber(createdUniqueNumber);
+        }
+
+        default -> {
+          writingRepository.modifyWriting(
+              uniqueNumber,
+              this.writerFormTextField.getText(),
+              this.subjectFormTextField.getText(),
+              this.titleFormTextField.getText(),
+              this.distanceFormTextField.getText(),
+              this.stopoverPlacesFormTextField.getText(),
+              this.contentFormTextArea.getText()
+          );
+        }
+      }
 
       emptyAllTextFields();
 

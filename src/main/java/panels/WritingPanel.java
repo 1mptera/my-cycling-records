@@ -15,7 +15,7 @@ public class WritingPanel extends JPanel {
     this.addDistanceLabel(writing.distance());
     this.addStopoverPlacesPanel(writing.stopoverPlaces());
     this.addContentArea(writing.content());
-    this.addModifyButton(mainPanel);
+    this.addModifyButton(writing, mainPanel);
   }
 
   public void addWriterLabel(String writer) {
@@ -61,11 +61,11 @@ public class WritingPanel extends JPanel {
     this.add(contentScrollPane);
   }
 
-  public void addModifyButton(MainPanel mainPanel) {
+  public void addModifyButton(Writing writing, MainPanel mainPanel) {
     JButton modifyButton = new JButton("수정하기");
 
     modifyButton.addActionListener(event -> {
-      mainPanel.leftSpacePanel().initWritingEditorPanel();
+      mainPanel.leftSpacePanel().initWritingEditorPanel(writing);
     });
 
     this.add(modifyButton);

@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class WritingTest {
   @Test
-  void creation() {
+  void creationTest() {
     Writing writing = new Writing(
         "작성자 1",
         "주제 1",
@@ -14,7 +14,7 @@ class WritingTest {
         "이동거리 1",
         new String[]{"경유지 1", "경유지 2", "경유지 3"},
         "글 내용 1",
-        "abcd"
+        1
     );
 
     assertEquals("작성자 1", writing.writer());
@@ -23,11 +23,11 @@ class WritingTest {
     assertEquals("이동거리 1", writing.distance());
     assertArrayEquals(new String[]{"경유지 1", "경유지 2", "경유지 3"}, writing.stopoverPlaces());
     assertEquals("글 내용 1", writing.content());
-    assertEquals("abcd", writing.uniqueNumber());
+    assertEquals(1, writing.uniqueNumber());
   }
 
   @Test
-  void modify() {
+  void modifyTest() {
     Writing writing = new Writing(
         "작성자 1",
         "주제 1",
@@ -35,7 +35,7 @@ class WritingTest {
         "이동거리 1",
         new String[]{"경유지 1", "경유지 2", "경유지 3"},
         "글 내용 1",
-        "abcd"
+        1
     );
 
     writing.modifyWriter("일론머스크");
@@ -51,6 +51,6 @@ class WritingTest {
     assertEquals("60000000km", writing.distance());
     assertArrayEquals(new String[]{"지구", "화성", "안드로메다은하"}, writing.stopoverPlaces());
     assertEquals("화성 갈끄니까~~~~~~", writing.content());
-    assertEquals("abcd", writing.uniqueNumber());
+    assertEquals(1, writing.uniqueNumber());
   }
 }

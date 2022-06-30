@@ -8,7 +8,7 @@ import java.util.Random;
 
 public class WritingRepository {
   private final List<Writing> writingsList;
-  private final List<String> usedUniqueNumbersList;
+  private final List<Integer> usedUniqueNumbersList;
 
   public WritingRepository() {
     writingsList = new ArrayList<>();
@@ -25,26 +25,34 @@ public class WritingRepository {
             "월요일부터 5일 내내 장마기간이라고 하길래 오전에 얼른 나가서 자전거를 타고 왔다." +
                 " 1시간 반 동안 열심히 라이딩을 해서 즐거웠다." +
                 " 이제 8주차 주간 과제를 열심히 해서 잘 기능하는 프로그램을 만들고 싶다.",
-            "skhj"
+            0
         )
     );
 
     usedUniqueNumbersList = new ArrayList<>();
-    usedUniqueNumbersList.add("skhj");
-  }
-
-  public int repositorySize() {
-    return writingsList.size();
+    usedUniqueNumbersList.add(0);
   }
 
   public Writing writing(int index) {
     return writingsList.get(index);
   }
 
+  public int uniqueNumber(int index) {
+    return usedUniqueNumbersList.get(index);
+  }
+
+  public int repositorySize() {
+    return writingsList.size();
+  }
+
+  public int usedUniqueNumbersListSize() {
+    return usedUniqueNumbersList.size();
+  }
+
   public void createNewWriting(
       String writer, String subject, String title,
       String distance, String stopoverPlaces, String content,
-      String uniqueNumber) {
+      int uniqueNumber) {
     String[] splitStopoverPlaces = stopoverPlaces.split(",");
 
     writingsList.add(
@@ -60,49 +68,55 @@ public class WritingRepository {
     );
   }
 
+  public int createNewUniqueNumber() {
+    int createdUniqueNumber = 0;
+
+    boolean isUniqueNumber = false;
+
+    for (int i = 0; i < usedUniqueNumbersListSize(); i += 1) {
+      createdUniqueNumber = i;
+
+      if (createdUniqueNumber != uniqueNumber(i)) {
+        isUniqueNumber = true;
+        break;
+      }
+    }
+
+    if (!isUniqueNumber) {
+      createdUniqueNumber += 1;
+    }
+
+    return createdUniqueNumber;
+  }
+
   public void modifyWriting(
-      String uniqueNumber,
+      int uniqueNumber,
       String writer, String subject, String title,
       String distance, String stopoverPlaces, String content) {
+    int indexBeModifiedWriting = findWritingMatchingUniqueNumber(uniqueNumber);
 
+    String[] splitStopoverPlaces = stopoverPlaces.split(",");
+
+    writing(indexBeModifiedWriting).modifyWriter(writer);
+    writing(indexBeModifiedWriting).modifySubject(subject);
+    writing(indexBeModifiedWriting).modifyTitle(title);
+    writing(indexBeModifiedWriting).modifyDistance(distance);
+    writing(indexBeModifiedWriting).modifyStopoverPlaces(splitStopoverPlaces);
+    writing(indexBeModifiedWriting).modifyContent(content);
   }
 
-  public String uniqueNumber(int index) {
-    return usedUniqueNumbersList.get(index);
-  }
+  public int findWritingMatchingUniqueNumber(int uniqueNumber) {
+    int index = 0;
 
-  public String createNewUniqueNumber() {
-    String uniqueNumber = "";
-
-    boolean isUniqueNumber = true;
-
-    do {
-      for (int i = 1; i <= 4; i += 1) {
-        Random random = new Random();
-        char letter = (char) ('a' + random.nextInt(26));
-
-        uniqueNumber += letter;
+    for (index = 0; index < repositorySize(); index += 1) {
+      if (uniqueNumber == writing(index).uniqueNumber()) {
+        break;
       }
+    }
 
-      for (String usedUniqueNumber : usedUniqueNumbersList) {
-        if (uniqueNumber.equals(usedUniqueNumber)) {
-          isUniqueNumber = false;
-
-          uniqueNumber = "";
-        }
-      }
-    } while (!isUniqueNumber);
-
-    return uniqueNumber;
+    return index;
   }
-
-  //Just for tests
-  public int usedUniqueNumbersListSize() {
-    return usedUniqueNumbersList.size();
-  }
-
-  //Just for tests
-  public void addUniqueNumber(String uniqueNumber) {
+  public void addUniqueNumber(int uniqueNumber) {
     usedUniqueNumbersList.add(uniqueNumber);
   }
 }

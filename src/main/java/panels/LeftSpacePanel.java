@@ -30,6 +30,16 @@ public class LeftSpacePanel extends JPanel {
     addAndSetVisible(writingEditorPanel);
   }
 
+  public void initWritingEditorPanel(Writing writing) {
+    this.removeAll();
+
+    writingEditorPanel = new WritingEditorPanel(
+        writingRepository, mainPanel, writing
+    );
+
+    addAndSetVisible(writingEditorPanel);
+  }
+
   public void initWritingPanel(Writing writing) {
     this.removeAll();
 

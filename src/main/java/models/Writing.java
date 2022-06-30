@@ -8,11 +8,11 @@ public class Writing {
   private String[] stopoverPlaces;
   private String content;
 
-  private String uniqueNumber;
+  private int uniqueNumber;
 
   public Writing(String writer, String subject, String title,
                  String distance, String[] stopoverPlaces, String content,
-                 String uniqueNumber) {
+                 int uniqueNumber) {
     this.writer = writer;
     this.subject = subject;
     this.title = title;
@@ -47,10 +47,9 @@ public class Writing {
     return this.content;
   }
 
-  public String uniqueNumber() {
+  public int uniqueNumber() {
     return this.uniqueNumber;
   }
-
 
   public void modifyWriter(String writer) { this.writer = writer; }
 
