@@ -72,7 +72,7 @@ class WritingRepositoryTest {
     WritingRepository writingRepository = new WritingRepository();
 
     //테스트 반복 수행 횟수
-    for (int testCount = 0; testCount < 500; testCount += 1) {
+    for (int testCount = 0; testCount < 1000; testCount += 1) {
       String uniqueNumber = writingRepository.createNewUniqueNumber();
 
       for (int i = 0; i < uniqueNumber.length(); i += 1) {
@@ -82,12 +82,12 @@ class WritingRepositoryTest {
         assertTrue(letter >= 'a' && letter <= 'z');
       }
 
-      writingRepository.addUniqueNumber(uniqueNumber);
-
       //다른 고유번호와 중복되지 않는지
-      for (int i = 0; i < writingRepository.repositorySize(); i += 1) {
+      for (int i = 0; i < writingRepository.usedUniqueNumbersListSize(); i += 1) {
         assertFalse(uniqueNumber.equals(writingRepository.uniqueNumber(i)));
       }
+
+      writingRepository.addUniqueNumber(uniqueNumber);
     }
   }
 }

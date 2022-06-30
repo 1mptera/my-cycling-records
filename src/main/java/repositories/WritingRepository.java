@@ -25,12 +25,12 @@ public class WritingRepository {
             "월요일부터 5일 내내 장마기간이라고 하길래 오전에 얼른 나가서 자전거를 타고 왔다." +
                 " 1시간 반 동안 열심히 라이딩을 해서 즐거웠다." +
                 " 이제 8주차 주간 과제를 열심히 해서 잘 기능하는 프로그램을 만들고 싶다.",
-            "ta68"
+            "skhj"
         )
     );
 
     usedUniqueNumbersList = new ArrayList<>();
-    usedUniqueNumbersList.add("ta68");
+    usedUniqueNumbersList.add("skhj");
   }
 
   public int repositorySize() {
@@ -87,11 +87,18 @@ public class WritingRepository {
       for (String usedUniqueNumber : usedUniqueNumbersList) {
         if (uniqueNumber.equals(usedUniqueNumber)) {
           isUniqueNumber = false;
+
+          uniqueNumber = "";
         }
       }
     } while (!isUniqueNumber);
 
     return uniqueNumber;
+  }
+
+  //Just for tests
+  public int usedUniqueNumbersListSize() {
+    return usedUniqueNumbersList.size();
   }
 
   //Just for tests
