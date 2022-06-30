@@ -7,6 +7,7 @@ import java.util.List;
 
 public class WritingRepository {
   private final List<Writing> writingsList;
+  private final List<String> usedUniqueNumbersList;
 
   public WritingRepository() {
     writingsList = new ArrayList<>();
@@ -26,6 +27,9 @@ public class WritingRepository {
             "ta68"
         )
     );
+
+    usedUniqueNumbersList = new ArrayList<>();
+    usedUniqueNumbersList.add("ta68");
   }
 
   public int repositorySize() {
