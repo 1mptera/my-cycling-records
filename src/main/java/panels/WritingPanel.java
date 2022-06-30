@@ -6,8 +6,8 @@ import javax.swing.*;
 import java.awt.*;
 
 public class WritingPanel extends JPanel {
-  public WritingPanel(Writing writing) {
-    this.setLayout(new GridLayout(8, 1));
+  public WritingPanel(Writing writing, MainPanel mainPanel) {
+    this.setLayout(new GridLayout(9, 1));
 
     this.addWriterLabel(writing.writer());
     this.addSubjectLabel(writing.subject());
@@ -15,6 +15,7 @@ public class WritingPanel extends JPanel {
     this.addDistanceLabel(writing.distance());
     this.addStopoverPlacesPanel(writing.stopoverPlaces());
     this.addContentArea(writing.content());
+    this.addModifyButton(mainPanel);
   }
 
   public void addWriterLabel(String writer) {
@@ -58,5 +59,15 @@ public class WritingPanel extends JPanel {
     JScrollPane contentScrollPane = new JScrollPane(contentArea);
 
     this.add(contentScrollPane);
+  }
+
+  public void addModifyButton(MainPanel mainPanel) {
+    JButton modifyButton = new JButton("수정하기");
+
+    modifyButton.addActionListener(event -> {
+      mainPanel.leftSpacePanel().initWritingEditorPanel();
+    });
+
+    this.add(modifyButton);
   }
 }

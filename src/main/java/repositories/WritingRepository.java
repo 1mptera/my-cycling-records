@@ -4,6 +4,7 @@ import models.Writing;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class WritingRepository {
   private final List<Writing> writingsList;
@@ -57,5 +58,44 @@ public class WritingRepository {
             uniqueNumber
         )
     );
+  }
+
+  public void modifyWriting(
+      String uniqueNumber,
+      String writer, String subject, String title,
+      String distance, String stopoverPlaces, String content) {
+
+  }
+
+  public String uniqueNumber(int index) {
+    return usedUniqueNumbersList.get(index);
+  }
+
+  public String createNewUniqueNumber() {
+    String uniqueNumber = "";
+
+    boolean isUniqueNumber = true;
+
+    do {
+      for (int i = 1; i <= 4; i += 1) {
+        Random random = new Random();
+        char letter = (char) ('a' + random.nextInt(26));
+
+        uniqueNumber += letter;
+      }
+
+      for (String usedUniqueNumber : usedUniqueNumbersList) {
+        if (uniqueNumber.equals(usedUniqueNumber)) {
+          isUniqueNumber = false;
+        }
+      }
+    } while (!isUniqueNumber);
+
+    return uniqueNumber;
+  }
+
+  //Just for tests
+  public void addUniqueNumber(String uniqueNumber) {
+    usedUniqueNumbersList.add(uniqueNumber);
   }
 }

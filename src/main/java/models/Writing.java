@@ -50,4 +50,25 @@ public class Writing {
   public String uniqueNumber() {
     return this.uniqueNumber;
   }
+
+
+  public void modifyWriter(String writer) { this.writer = writer; }
+
+  public void modifySubject(String subject) {
+    this.subject = subject;
+  }
+
+  public void modifyTitle(String title) {
+    this.title = title;
+  }
+
+  public void modifyDistance(String distance) {
+    this.distance = distance;
+  }
+
+  public void modifyStopoverPlaces(String[] stopoverPlaces) {
+    this.stopoverPlaces = stopoverPlaces;
+  }
+
+  public void modifyContent(String content) { this.content = content; }
 }
