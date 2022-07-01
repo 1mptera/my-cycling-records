@@ -9,13 +9,7 @@ public class HeaderPanel extends JPanel {
   public HeaderPanel() {
     this.setLayout(new BorderLayout());
 
-    //this.initBlankPanel();
     this.initCreateNewWritingButton();
-  }
-
-  public void initBlankPanel() {
-    JPanel blankPanel = new JPanel();
-    this.add(blankPanel);
   }
 
   public void initCreateNewWritingButton() {

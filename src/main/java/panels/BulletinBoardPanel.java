@@ -3,6 +3,7 @@ package panels;
 import repositories.WritingRepository;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 
 public class BulletinBoardPanel extends JPanel {
@@ -16,17 +17,22 @@ public class BulletinBoardPanel extends JPanel {
 
     this.mainPanel = mainPanel;
 
-    this.setLayout(
-        new GridLayout(writingRepository.repositorySize(), 1)
-    );
+    this.setLayoutForBulletinBoardPanel();
 
     this.initWritingPanels();
+  }
+
+  public void setLayoutForBulletinBoardPanel() {
+    this.setLayout(new FlowLayout());
   }
 
   public void initWritingPanels() {
     for (int i = writingRepository.repositorySize() - 1; i >= 0; i -= 1) {
       JPanel writingThumbnailPanel =
           new WritingThumbnailPanel(writingRepository.writing(i), mainPanel);
+
+      writingThumbnailPanel.setPreferredSize(new Dimension(200, 100));
+      writingThumbnailPanel.setBorder(new LineBorder(Color.black));
 
       this.add(writingThumbnailPanel);
     }

@@ -38,9 +38,7 @@ public class MainPanel extends JPanel {
 
   public void reinitBulletinBoardPanel() {
     bulletinBoardPanel.removeAll();
-    bulletinBoardPanel.setLayout(
-        new GridLayout(writingRepository.repositorySize(), 1)
-    );
+    bulletinBoardPanel.setLayoutForBulletinBoardPanel();
     bulletinBoardPanel.initWritingPanels();
     bulletinBoardPanel.setVisible(false);
     bulletinBoardPanel.setVisible(true);
