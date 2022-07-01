@@ -34,14 +34,13 @@ public class MyCyclingRecords {
     frame = new JFrame("My Cycling Application");
 
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    frame.setLocation(150, 150);
-    frame.setLayout(new GridLayout(2, 1));
-    frame.setSize(450, 600);
+    frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+    frame.setLayout(new BorderLayout());
   }
 
   public void initHeaderPanel() {
     headerPanel = new HeaderPanel();
-    frame.add(headerPanel);
+    frame.add(headerPanel, BorderLayout.PAGE_START);
   }
 
   public void initMainPanel() {
@@ -53,8 +52,6 @@ public class MyCyclingRecords {
   }
 
   public void showFrame() {
-    frame.pack();
-
     frame.setVisible(true);
   }
 }
