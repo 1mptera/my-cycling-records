@@ -7,9 +7,9 @@ public class HeaderPanel extends JPanel {
   private JButton createNewWritingButton;
 
   public HeaderPanel() {
-    this.setLayout(new GridLayout(1, 2));
+    this.setLayout(new BorderLayout());
 
-    this.initBlankPanel();
+    //this.initBlankPanel();
     this.initCreateNewWritingButton();
   }
 
@@ -20,7 +20,7 @@ public class HeaderPanel extends JPanel {
 
   public void initCreateNewWritingButton() {
     createNewWritingButton = new JButton("새 글 작성하기");
-    this.add(createNewWritingButton);
+    this.add(createNewWritingButton, BorderLayout.EAST);
   }
 
   public void setButtonActionListener(MainPanel mainPanel) {
